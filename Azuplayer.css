@@ -1,0 +1,158 @@
+/** Azuplayer的主要css文件
+ * @author Yui_ <13413925094@139.com>
+ */
+#azuplayer-box-main {
+    --measure:calc(var(--boxWidth) / 5);
+    --measureB:calc(var(--measure) / 4);
+    width:var(--boxWidth);
+    height:var(--measure);
+    background:white;
+    display:flex;
+    filter: drop-shadow(0px 0px calc(var(--boxWidth) / 50) #525252);
+}
+#azuplayer-cover-img {
+    width:var(--measure);
+    height:var(--measure);
+    object-fit:cover;
+    border-right-style:solid;
+    border-width:1px;
+    border-color:#aaaaaa;
+    filter:brightness(80%);   
+}
+
+#azuplayer-play-img {
+    --measureC:calc(var(--measure) - 1px);
+    --measureD:calc(var(--measure) / 3);
+    width:var(--measureD);
+    height:var(--measureD);
+    object-fit:cover;
+    position: absolute;
+    margin-left:var(--measureC);
+    margin-top:var(--measureC);    
+    transform: translate(-100%,-100%);
+    z-index: 1;
+    pointer-events: none;
+}
+#azuplayer-progress-ranged {        
+    margin-top:0px;
+    position:absolute;
+    width:calc(var(--measure) * 4);
+    height:calc(var(--measureB) / 4);
+    transform: translate(0%,-50%);
+    margin-left:-1px;
+    opacity:0;
+}
+#azuplayer-title-p {
+    --topmeasure:calc(((var(--measureB) * 3) - var(--boxFontsize)) / 2);
+    width:calc((var(--measure) * 4) - 1px);    
+    height:calc((var(--measureB) * 3) - var(--topmeasure));
+    margin-top:0px;
+    margin-bottom:0px;
+    margin-left:1px;
+    font-size:var(--boxFontsize);
+    background:none;
+    overflow:auto;
+    color:#DB000A;
+    white-space:nowrap;
+    text-align:center;
+    padding-top:var(--topmeasure);
+}
+
+#azuplayer-title-p span {
+    font-size:calc((var(--boxFontsize) / 3) * 2);
+}
+#azuplayer-title-p span:before {
+    content:"-";
+}
+#azuplayer-tool-div {
+    --heightmeasure:calc(var(--measureB) / 4);
+    width:calc((var(--measure) * 4) - 1px);    
+    height:calc((var(--measureB) / 4) * 5);
+    margin:0px;
+    color:#aaaaaa;    
+    margin-top:calc(0px - ((var(--measureB) / 4) * 2));
+    border-style:none;
+    /*background:#dedede;*/
+    padding:0px;    
+}
+#azuplayer-list-bu {
+    height:100%;
+    margin:0px;
+    color:#aaaaaa;    
+    font-size:calc((var(--measureB) / 4) * 3);    
+    margin-left:1px;
+    border-style:none;
+    background:none;
+    padding:0px;
+    display:block;
+}
+
+#azuplayer-time-p {
+    transform: translate(-100%,-100%);    
+    height:100%;
+    margin:0px;
+    color:#aaaaaa;
+    margin-left:0px;
+    position: absolute;
+    margin-left:calc((var(--measure) * 4) - 1px);
+    margin-top:calc(var(--measureB) * 3);
+    font-size:calc(var(--heightmeasure) * 3);
+    padding:0px;
+    pointer-events: none;
+}
+#azuplayer-progress-box {
+    --NowProgress:0%;
+    --heightmeasure:calc(var(--measureB) / 4);
+    width:calc((var(--measure) * 4) - 1px);
+    height:var(--heightmeasure);    
+    background:#dedede;
+    overflow:hidden;
+    pointer-events: none;
+}
+#azuplayer-progress-already {
+    --radiusmeasure:calc(var(--heightmeasure) / 2);
+    transform: translate(var(--NowProgress),0%);
+    margin-left:calc(0px - var(--measure) * 4);
+    width:calc(var(--measure) * 4);
+    height:var(--heightmeasure);    
+    background:#DB000A;
+    border-radius:0px var(--radiusmeasure) var(--radiusmeasure) 0px;
+}
+
+#azuplay-list-box {
+    position: fixed;
+    bottom:0px;
+    left:0px;
+    width:100%;
+    background:white;
+    z-index: 99999;
+    overflow:auto;
+    max-height:50vh;
+    filter: drop-shadow(0px 0px calc(var(--boxWidth) / 50) #525252);
+    display:none;
+}
+#azuplay-list-black {
+    position: fixed;
+    top:0px;
+    left:0px;
+    width:100vw;
+    height:100vh;
+    background:black;  
+     z-index: 99998;  
+    opacity:0.2;
+    display:none;
+}
+#azuplay-list-box ul {
+    
+    padding:8px 0px;
+    margin:0px;
+}
+#azuplay-list-box li {
+    padding:8px;
+    color:#525252;
+    font-size:var(--boxFontsize);
+}
+#azuplay-list-box span {
+    color:#aaaaaa;
+    font-size:calc((var(--boxFontsize) / 3) * 2);
+}

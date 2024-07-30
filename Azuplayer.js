@@ -5,10 +5,6 @@
  *@date 2024-07-28 初始版本
  */
 
-//http://i2.hdslb.com/bfs/archive/a52dd54803a16da966f7e76e3b7b5c97977f1e23.jpg
-//https://xy220x180x77x88xy.mcdn.bilivideo.cn:8082/v1/resource/789053_da3-1-30216.m4s?agrr=1&build=0&buvid=FE4ED8D7-D03F-3E4B-95A4-83FBEA5F8FB628320infoc&bvc=vod&bw=8446&deadline=1722165077&e=ig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEqxTEto8BTrNvN0GvT90W5JZMkX_YN0MvXg8gNEV4NC8xNEV4N03eN0B5tZlqNxTEto8BTrNvNeZVuJ10Kj_g2UB02J0mN0B5tZlqNCNEto8BTrNvNC7MTX502C8f2jmMQJ6mqF2fka1mqx6gqj0eN0B599M%3D&f=u_0_0&gen=playurlv2&logo=80000000&mid=1560384560&nbs=1&nettype=0&og=hw&oi=2028330408&orderid=0%2C3&os=08hbv&platform=pc&sign=11416c&traceid=trLDYDiDZehGxg_0_e_N&uipk=5&uparams=e%2Cuipk%2Cnbs%2Cdeadline%2Cgen%2Cos%2Coi%2Ctrid%2Cmid%2Cplatform%2Cog&upsig=0bb3ce4c249e647a9e3b03146feaecef
-
-
 /**
  *构建音乐播放器
  *里面html的id命名方式 我是以
