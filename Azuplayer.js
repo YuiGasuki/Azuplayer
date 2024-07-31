@@ -12,6 +12,7 @@
  *@author Yui_ <13413925094@139.com>
  */
 let data;//储存播放器信息
+let OriginalPath = "https://yuigasuki.github.io/Azuplayer/";
 function player(Object){
     data = Object;
     const mainbox = document.getElementById(data.id);
@@ -72,7 +73,7 @@ function player(Object){
     suspendedBallHtml = `
     <div id="azuplayer-black-main"></div>
     <div id="azuplayer-box-suspendedBall" style="position: fixed;${a}">
-    <img id="azuplayer-suspendedBall-img" src="azuplay-pause.svg" alt="播放按钮">
+    <img id="azuplayer-suspendedBall-img" src="${OriginalPath}azuplay-pause.svg" alt="播放按钮">
     <img class="azuplayer-cover-img" id="azuplayer-suspendedBall-cover" src="${urlCover}" alt="封面">
     </div>
     `;
@@ -89,7 +90,7 @@ function player(Object){
     }
     </style>
     <div id="azuplayer-box-main" ${suspendedBallCss}>
-        <img id="azuplayer-play-img" src="azuplay-pause.svg" alt="播放按钮" class="azuplayer-play-img">
+        <img id="azuplayer-play-img" src="${OriginalPath}azuplay-pause.svg" alt="播放按钮" class="azuplayer-play-img">
         <a href="${urlaudio}" id="azuplayer-play-a">
         <img id="azuplayer-cover-img" src="${urlCover}" alt="封面" class="azuplayer-cover-img">
         </a>
@@ -170,9 +171,9 @@ function player(Object){
     }
     PlayAudio.onloadedmetadata = () =>{    
         PlayAudio.pause();
-        PlayImg.src="azuplay-pause.svg";
+        PlayImg.src=OriginalPath+"azuplay-pause.svg";
         if(data.SuspendedBall){
-            azuplayerSuspendedBallImg.src="azuplay-pause.svg";
+            azuplayerSuspendedBallImg.src=OriginalPath+"azuplay-pause.svg";
         }
         ProgressRanged.max = PlayAudio.duration;
         PlaytimeShow.innerText = `${formattingTime(PlayAudio.currentTime)}/${formattingTime(PlayAudio.duration)}`;
@@ -183,9 +184,9 @@ function player(Object){
     }
     PlayAudio.onended = () =>{
         PlayAudio.pause();
-        PlayImg.src="azuplay-pause.svg";
+        PlayImg.src=OriginalPath+"azuplay-pause.svg";
         if(data.SuspendedBall){
-            azuplayerSuspendedBallImg.src="azuplay-pause.svg";
+            azuplayerSuspendedBallImg.src=OriginalPath+"azuplay-pause.svg";
         }
     }
     PlayButton.addEventListener('click',playerplay);
@@ -196,15 +197,15 @@ function player(Object){
         }
         if(PlayAudio.paused){
             PlayAudio.play();
-            PlayImg.src="azuplay-play.svg";
+            PlayImg.src=OriginalPath+"azuplay-play.svg";
                     if(data.SuspendedBall){
-            azuplayerSuspendedBallImg.src="azuplay-play.svg";
+            azuplayerSuspendedBallImg.src=OriginalPath+"azuplay-play.svg";
         }
         }else{
             PlayAudio.pause();
-            PlayImg.src="azuplay-pause.svg";
+            PlayImg.src=OriginalPath+"azuplay-pause.svg";
                     if(data.SuspendedBall){
-            azuplayerSuspendedBallImg.src="azuplay-pause.svg";
+            azuplayerSuspendedBallImg.src=OriginalPath+"azuplay-pause.svg";
         }
         }
     }
@@ -246,9 +247,9 @@ function player(Object){
 player.prototype.play = function (){
     if(this.PlayAudio){
         this.PlayAudio.play();
-        this.PlayImg.src="azuplay-play.svg";
+        this.PlayImg.src=OriginalPath+"azuplay-play.svg";
         if(data.SuspendedBall){
-            this.azuplayerSuspendedBallImg.src="azuplay-play.svg";
+            this.azuplayerSuspendedBallImg.src=OriginalPath+"azuplay-play.svg";
         }
         return "ok"
     }else{
@@ -258,9 +259,9 @@ player.prototype.play = function (){
 player.prototype.pause = function (){
     if(this.PlayAudio){
         this.PlayAudio.pause();
-        this.PlayImg.src="azuplay-pause.svg";
+        this.PlayImg.src=OriginalPath+"azuplay-pause.svg";
         if(data.SuspendedBall){
-            this.azuplayerSuspendedBallImg.src="azuplay-pause.svg";
+            this.azuplayerSuspendedBallImg.src=OriginalPath+"azuplay-pause.svg";
         }
         return "ok"
     }else{
