@@ -21,6 +21,7 @@ function player(Object){
     let urlSinger = data.url.singer;
     let urlCover = data.url.cover;
     let urlaudio = data.url.url;
+    let suspendedBallHtml = ``,suspendedBallCss = ``;
     if(data.width){
         dataWidth = data.width;
     }
@@ -60,19 +61,37 @@ function player(Object){
         listHtml = `<div id="azuplay-list-black"></div><div id="azuplay-list-box"><ul>${a}</ul></dv>`
         //console.log(UrlList);
     }
-
+    
+    if(data.SuspendedBall||data.SuspendedPosition){
+    data.SuspendedPosition = data.SuspendedPosition.split(" ");
+    
+    let a = "";
+    for(let i=0;i<data.SuspendedPosition.length;i++){
+    a += data.SuspendedPosition[i]+";";
+    }
+    suspendedBallHtml = `
+    <div id="azuplayer-black-main"></div>
+    <div id="azuplayer-box-suspendedBall" style="position: fixed;${a}">
+    <img id="azuplayer-suspendedBall-img" src="azuplay-pause.svg" alt="播放按钮">
+    <img class="azuplayer-cover-img" id="azuplayer-suspendedBall-cover" src="${urlCover}" alt="封面">
+    </div>
+    `;
+    suspendedBallCss = `style="display:none;z-index: 99997;position: fixed;${a}"`;
+    }
+    
     mainbox.innerHTML =
     `
     <style>
     #${data.id} {
         --boxWidth:${dataWidth};
         --boxFontsize:${dataFontsize};
+        --measure:calc(var(--boxWidth) / 5);
     }
     </style>
-    <div id="azuplayer-box-main">
-        <img id="azuplayer-play-img" src="azuplay-pause.svg" alt="播放按钮">
+    <div id="azuplayer-box-main" ${suspendedBallCss}>
+        <img id="azuplayer-play-img" src="azuplay-pause.svg" alt="播放按钮" class="azuplayer-play-img">
         <a href="${urlaudio}" id="azuplayer-play-a">
-        <img id="azuplayer-cover-img" src="${urlCover}" alt="封面">
+        <img id="azuplayer-cover-img" src="${urlCover}" alt="封面" class="azuplayer-cover-img">
         </a>
         <div>
         <p id="azuplayer-title-p">${urlTitle}<span>${urlSinger}</span></p> 
@@ -87,9 +106,11 @@ function player(Object){
         </div>
         <audio id="azuplay-play-audio" src="${urlaudio}" ></audio>        
     </div>
-    ${listHtml}
+    ${suspendedBallHtml}
+    ${listHtml}   
     `;
     const ProgressRanged = document.getElementById("azuplayer-progress-ranged");
+    const azuplayerBoxMain = document.getElementById("azuplayer-box-main");
     const ProgressBox = document.getElementById("azuplayer-progress-box");
     const PlayAudio = document.getElementById("azuplay-play-audio");
     const listBu = document.getElementById("azuplayer-list-bu");
@@ -101,6 +122,32 @@ function player(Object){
     const PlayButton = document.getElementById("azuplayer-play-a");
     const PlayImg = document.getElementById("azuplayer-play-img"); 
     const PlaytimeShow = document.getElementById("azuplayer-time-p"); 
+    if(data.SuspendedBall){
+        var azuplayerSuspendedBallImg = document.getElementById("azuplayer-suspendedBall-img");
+        var azuplayerSuspendedBallCover = document.getElementById("azuplayer-suspendedBall-cover");
+        var azuplayerSuspendedBallBox = document.getElementById("azuplayer-box-suspendedBall");
+        var azuplayerBlackMain = document.getElementById("azuplayer-black-main");
+        this.azuplayerSuspendedBallImg = azuplayerSuspendedBallImg;
+        let azuplayIsClick = null;
+        azuplayerSuspendedBallCover.addEventListener('click',(event)=>{
+            clearTimeout(azuplayIsClick);
+            azuplayIsClick=setTimeout(function () {
+                playerplay(event);
+            },200);
+        });
+        azuplayerSuspendedBallCover.ondblclick = () =>{
+            clearTimeout(azuplayIsClick);
+            azuplayerSuspendedBallBox.style.display = "none";
+            azuplayerBoxMain.style.display="flex";
+            azuplayerBlackMain.style.display="inline";
+        }
+        azuplayerBlackMain.onclick = () =>{
+            azuplayerSuspendedBallBox.style.display = "inline";
+            azuplayerBoxMain.style.display="none";
+            azuplayerBlackMain.style.display="none";
+        }
+        
+    }
     this.PlayImg = PlayImg;
     let isFunProofread = false;
     let isAudioOk = false;
@@ -124,6 +171,9 @@ function player(Object){
     PlayAudio.onloadedmetadata = () =>{    
         PlayAudio.pause();
         PlayImg.src="azuplay-pause.svg";
+        if(data.SuspendedBall){
+            azuplayerSuspendedBallImg.src="azuplay-pause.svg";
+        }
         ProgressRanged.max = PlayAudio.duration;
         PlaytimeShow.innerText = `${formattingTime(PlayAudio.currentTime)}/${formattingTime(PlayAudio.duration)}`;
         ProgressRanged.addEventListener('change',ProofreadProgressOk);
@@ -134,6 +184,9 @@ function player(Object){
     PlayAudio.onended = () =>{
         PlayAudio.pause();
         PlayImg.src="azuplay-pause.svg";
+        if(data.SuspendedBall){
+            azuplayerSuspendedBallImg.src="azuplay-pause.svg";
+        }
     }
     PlayButton.addEventListener('click',playerplay);
     function playerplay(event){
@@ -144,9 +197,15 @@ function player(Object){
         if(PlayAudio.paused){
             PlayAudio.play();
             PlayImg.src="azuplay-play.svg";
+                    if(data.SuspendedBall){
+            azuplayerSuspendedBallImg.src="azuplay-play.svg";
+        }
         }else{
             PlayAudio.pause();
             PlayImg.src="azuplay-pause.svg";
+                    if(data.SuspendedBall){
+            azuplayerSuspendedBallImg.src="azuplay-pause.svg";
+        }
         }
     }
     
@@ -159,10 +218,15 @@ function player(Object){
             e.style.background ="#eee";
             e.style.color="#DB000A";
             CoverImg.src=data.url[id].cover;
+            if(data.SuspendedBall){
+                azuplayerSuspendedBallCover.src=data.url[id].cover;
+            }
             Titlep.innerHTML = `${data.url[id].title}<span>${data.url[id].singer}</span>`;
             PlayAudio.src = data.url[id].url;
             PlayButton.href=data.url[id].url;
             ProgressBox.style.setProperty('--NowProgress',"0%");            
+            ProgressRanged.max=0;
+            ProgressRanged.min=0;
     }
     const listdom = document.querySelectorAll('.azuplayer-list-li');
     for(let i =0;i<listdom.length;i++){
@@ -183,6 +247,9 @@ player.prototype.play = function (){
     if(this.PlayAudio){
         this.PlayAudio.play();
         this.PlayImg.src="azuplay-play.svg";
+        if(data.SuspendedBall){
+            this.azuplayerSuspendedBallImg.src="azuplay-play.svg";
+        }
         return "ok"
     }else{
         return "no player"
@@ -192,6 +259,9 @@ player.prototype.pause = function (){
     if(this.PlayAudio){
         this.PlayAudio.pause();
         this.PlayImg.src="azuplay-pause.svg";
+        if(data.SuspendedBall){
+            this.azuplayerSuspendedBallImg.src="azuplay-pause.svg";
+        }
         return "ok"
     }else{
         return "no player"
