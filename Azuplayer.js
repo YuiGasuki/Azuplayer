@@ -3,6 +3,7 @@
  *音乐播放器
  *@author Yui_ <13413925094@139.com>
  *@date 2024-07-28 初始版本
+ *@date 2024-09-15 添加默认封面,自定义字体
  */
 
 /**
@@ -28,6 +29,9 @@ function player(Object){
     }
     if(data.fontSize){
         dataFontsize = data.fontSize;
+    }
+    if(!data.fontFamily){
+        data.fontFamily = "none";
     }
     if(!data.url.title){
         urlTitle = "ㄟ( ▔, ▔ )ㄏ";
@@ -86,7 +90,10 @@ function player(Object){
     #${data.id} {
         --boxWidth:${dataWidth};
         --boxFontsize:${dataFontsize};
-        --measure:calc(var(--boxWidth) / 5);
+        --measure:calc(var(--boxWidth) / 5);        
+    }
+    #${data.id} * {
+    font-family:${data.fontFamily};
     }
     </style>
     <div id="azuplayer-box-main" ${suspendedBallCss}>
@@ -182,6 +189,14 @@ function player(Object){
         PlayAudio.addEventListener('timeupdate',ProofreadTime);       
         isAudioOk = true;
     }
+    document.querySelectorAll(".azuplayer-cover-img").forEach(item => {
+        item.addEventListener('error', () =>{
+            item.src = item.src;
+            item.addEventListener('error', () =>{
+                item.src = "nothing.jpeg";
+            });
+        }, { once: true });
+    });
     PlayAudio.onended = () =>{
         PlayAudio.pause();
         PlayImg.src=OriginalPath+"azuplay-pause.svg";
@@ -222,6 +237,14 @@ function player(Object){
             if(data.SuspendedBall){
                 azuplayerSuspendedBallCover.src=data.url[id].cover;
             }
+            document.querySelectorAll(".azuplayer-cover-img").forEach(item => {
+        item.addEventListener('error', () =>{
+            item.src = item.src;
+            item.addEventListener('error', () =>{
+                item.src = "nothing.jpeg";
+            });
+        }, { once: true });
+    });
             Titlep.innerHTML = `${data.url[id].title}<span>${data.url[id].singer}</span>`;
             PlayAudio.src = data.url[id].url;
             PlayButton.href=data.url[id].url;
