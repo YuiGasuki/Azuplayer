@@ -4,19 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title></title>
-<link rel="stylesheet" href="https://yuigasuki.github.io/Azuplayer/Azuplayer.css" >
+<link rel="stylesheet" href="Azuplayer.css" >
 <style>
 </style>
 </head>
 <body>
 <div id="azucat"></div>
-<div id="azuct"></div>
-<script src="https://yuigasuki.github.io/Azuplayer/Azuplayer.js"></script>
+<script src="Azuplayer.js?time=204kcjdd668"></script>
 <script>
 var Azuplayer = new player({
 id:"azucat",
 width:"300px",
 fontSize:"",//默认按比例缩放
+SuspendedBall:true,//默认为false
+SuspendedPosition:"bottom:20px left:8px",//格式为"方向+长度" 用空格分割
 url:[
         {
             url:"1.mp3",
@@ -29,6 +30,12 @@ url:[
             title:"白金ディスコ",
             singer:"井口裕香",
             cover:"2.jpg"
+        },
+        {
+            url:"http://music.163.com/song/media/outer/url?id=514543069.mp3",
+            title:"相遇天使",
+            singer:"放學後茶會",
+            cover:"http://p1.music.126.net/e1n_xjLFAm_GY8ZETmka4g==/109951163048673023.jpg?param=300x300"
         }
    ]
 });

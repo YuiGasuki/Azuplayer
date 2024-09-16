@@ -166,11 +166,14 @@
     --measureD:calc(var(--measure) / 2);
     width:var(--measureD);
     height:var(--measureD);
-    object-fit:cover;
     position: absolute;
     margin-left:var(--measureC);
     margin-top:var(--measureC);    
     z-index: 1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
     pointer-events: none;
     transform: translate(-50%,-50%);
 }
