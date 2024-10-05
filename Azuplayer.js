@@ -63,7 +63,7 @@ function player(Object){
             a +=`<li class="azuplayer-list-li" >${data.url[i].title}<br><span>${data.url[i].singer}</span></li>`;
             }
     }
-        listHtml = `<div id="azuplay-list-black"></div><div id="azuplay-list-box"><ul>${a}</ul></dv>`
+        listHtml = `<div id="azuplay-list-box"><ul>${a}</ul></div><div id="azuplay-list-black">收回</div>`
         //console.log(UrlList);
     }
     
@@ -90,7 +90,8 @@ function player(Object){
     #${data.id} {
         --boxWidth:${dataWidth};
         --boxFontsize:${dataFontsize};
-        --measure:calc(var(--boxWidth) / 5);        
+        --measure:calc(var(--boxWidth) / 5);    
+        filter: drop-shadow(0px 0px calc(var(--boxWidth) / 50) #525252); 
     }
     #${data.id} * {
     font-family:${data.fontFamily};
@@ -234,6 +235,7 @@ function player(Object){
             e.style.background ="#eee";
             e.style.color="#DB000A";
             CoverImg.src=data.url[id].cover;
+            listBlack.click();
             if(data.SuspendedBall){
                 azuplayerSuspendedBallCover.src=data.url[id].cover;
             }
@@ -258,7 +260,7 @@ function player(Object){
     };
     listBu.onclick = () =>{
         listBox.style.display = "inline";
-        listBlack.style.display = "inline";
+        listBlack.style.display = "block";
     }
     listBlack.onclick = () =>{
         listBox.style.display = "none";
