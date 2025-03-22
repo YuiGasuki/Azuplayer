@@ -60,7 +60,7 @@ function player(Object){
         if(i===0){
             a +=`<li class="azuplayer-list-li"  style="background:#eee;color:#DB000A;">${data.url[i].title}<br><span>${data.url[i].singer}</span></li>`;
         }else{
-            a +=`<li class="azuplayer-list-li" >${data.url[i].title}<br><span>${data.url[i].singer}</span></li>`;
+            a +=`<li class="azuplayer-list-li-no" >${data.url[i].title}<br><span>${data.url[i].singer}</span></li>`;
             }
     }
         listHtml = `<div id="azuplay-list-box"><ul>${a}</ul></div><div id="azuplay-list-black">收回</div>`
@@ -228,12 +228,18 @@ function player(Object){
     
     if(listHtml!=""){
     const changeSong = (e,id) =>{
-        document.querySelectorAll('.azuplayer-list-li').forEach(el => {
+        if(e.className==="azuplayer-list-li"){
+        listBlack.click();
+        return
+        }
+        document.querySelectorAll('#azuplay-list-box li').forEach(el => {
             el.style.background="none";
             el.style.color="#525252";
+            el.className="azuplayer-list-li-no"
         });
             e.style.background ="#eee";
             e.style.color="#DB000A";
+            e.className="azuplayer-list-li";
             CoverImg.src=data.url[id].cover;
             listBlack.click();
             if(data.SuspendedBall){
@@ -254,7 +260,7 @@ function player(Object){
             ProgressRanged.max=0;
             ProgressRanged.min=0;
     }
-    const listdom = document.querySelectorAll('.azuplayer-list-li');
+    const listdom = document.querySelectorAll('#azuplay-list-box li');
     for(let i =0;i<listdom.length;i++){
         listdom[i].onclick = () =>{changeSong(listdom[i],i)};
     };
