@@ -122,7 +122,7 @@
 #azuplay-list-box {
     position:relative;
     top:calc(0px - var(--measure));
-    width:100%;
+    width:var(--boxWidth);
     background:white;
     z-index: 99999;
     overflow:auto;
