@@ -141,6 +141,7 @@
     padding:8px 0px;
     text-align:center;
     font-size:var(--boxFontsize);
+    cursor: pointer;
 }
 #azuplay-list-box ul {
     background:white;
@@ -149,6 +150,7 @@
     margin:0px;
     list-style-type:decimal;
     list-style-position:inside;
+    cursor: pointer;
 }
 #azuplay-list-box li {
     padding:8px;
