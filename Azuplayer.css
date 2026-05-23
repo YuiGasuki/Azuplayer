@@ -85,6 +85,7 @@
     background:none;
     padding:0px;
     display:block;
+    cursor: pointer;
 }
 
 #azuplayer-time-p {
