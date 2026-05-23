@@ -265,7 +265,7 @@ function player(Object){
         listdom[i].onclick = () =>{changeSong(listdom[i],i)};
     };
     listBu.onclick = () =>{
-        listBox.style.display = "inline";
+        listBox.style.display = "block";
         listBlack.style.display = "block";
     }
     listBlack.onclick = () =>{
